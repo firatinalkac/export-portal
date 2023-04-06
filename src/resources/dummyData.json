@@ -1,0 +1,54 @@
+{
+   "shipments": [
+   {
+      "id": "1",
+      "company_name": "XYZ Logistics",
+      "shipment_date": "2023-04-01",
+      "shipment_price": "$ 1.000",
+      "payment_received": "$ 300",
+      "remaining_debt": "$ 700",
+      "shipment_cost": "$ 200",
+      "profit": "$ 800"
+   },
+   {
+      "id": "2",
+      "company_name": "ABC Logistics",
+      "shipment_date": "2023-04-02",
+      "shipment_price": "$ 1.000",
+      "payment_received": "$ 300",
+      "remaining_debt": "$ 700",
+      "shipment_cost": "$ 200",
+      "profit":  "$ 800"
+   },
+   {
+      "id": "3",
+      "company_name": "DEF Logistics",
+      "shipment_date": "2023-04-03",
+      "shipment_price": "$ 1.000",
+      "payment_received": "$ 300",
+      "remaining_debt": "$ 700",
+      "shipment_cost": "$ 200",
+      "profit":  "$ 800"
+   },
+   {
+      "id": "4",
+      "company_name": "GHI Logistics",
+      "shipment_date": "2023-04-04",
+      "shipment_price": "$ 1.000",
+      "payment_received": "$ 300",
+      "remaining_debt": "$ 700",
+      "shipment_cost": "$ 200",
+      "profit":  "$ 800"
+   },
+   {
+      "id": "5",
+      "company_name": "JKL Logistics",
+      "shipment_date": "2023-04-05",
+      "shipment_price": "$ 1.000",
+      "payment_received": "$ 300",
+      "remaining_debt": "$ 700",
+      "shipment_cost": "$ 200",
+      "profit":  "$ 800"
+   }
+]
+}
