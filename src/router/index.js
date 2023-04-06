@@ -1,18 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import Dashboard from "@/views/Dashboard/Dashboard.vue";
-import Shipments from "@/views/Shipments/Shipments.vue";
-import AddShipment from "@/views/AddShipment/AddShipment.vue";
-import DetailShipment from "@/views/DetailShipment/DetailShipment.vue";
-import Login from "@/views/Login/Login.vue";
-import NotFound from "@/views/notFound/notFound.vue";
-
 const routes = [
    {
       path: '/',
       name: 'Dashboard',
-      component: Dashboard,
+      component: () => import('@/views/Dashboard/Dashboard.vue'),
       meta: {
          requiresAuth: true,
       }
@@ -20,7 +13,7 @@ const routes = [
    {
       path: '/shipments',
       name: 'Shipments',
-      component: Shipments,
+      component: () => import('@/views/Shipments/Shipments.vue'),
       meta: {
          requiresAuth: true,
       }
@@ -28,7 +21,7 @@ const routes = [
    {
       path: '/add-shipment',
       name: 'AddShipment',
-      component: AddShipment,
+      component: () => import('@/views/AddShipment/AddShipment.vue'),
       meta: {
          requiresAuth: true,
       }
@@ -36,7 +29,7 @@ const routes = [
    {
       path: '/detail-shipment/:id',
       name: 'DetailShipment',
-      component: DetailShipment,
+      component: () => import('@/views/DetailShipment/DetailShipment.vue'),
       meta: {
          requiresAuth: true,
       }
@@ -44,12 +37,12 @@ const routes = [
    {
       path: '/login',
       name: 'Login',
-      component: Login,
+      component: () => import('@/views/Login/Login.vue'),
    },
    {
       path: "/:pathMatch(.*)*",
       name: "not-found",
-      component: NotFound,
+      component: () => import('@/views/Login/Login.vue'),
       meta: {
          notFound: true,
       }

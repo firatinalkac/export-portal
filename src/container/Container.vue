@@ -1,5 +1,5 @@
 <template>
-   <div class="app-container">
+   <div class="app-container" id="app">
       <div class="navbar">
          <Navbar :links="links" />
       </div>
