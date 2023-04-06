@@ -81,6 +81,7 @@ async function handleSignOut() {
    align-items: center;
    padding: 1.3rem clamp(3vw, 100%, (100vw - 1652px) / 2);
    .border {
+      background: var(--content-bg);
       border-bottom: 1px solid var(--border);
    }
    &__left {
