@@ -1,6 +1,6 @@
 <template>
    <div class="shipments">
-      <div v-if="!!data.length" class="shipments__header">
+      <div v-if="!!data.length && !loading" class="shipments__header">
          <div class="left">
             <span class="title">
                Nakliyeler
@@ -12,10 +12,10 @@
             <small class="description">{{`Toplam ${dummyData.shipments.length} Nakliye`}}</small>
          </div>
          <span class="right">
-            Toplam Net Kâr: <span class="price">{{ totalProfit }}</span>
+            Toplam Net Kâr: <span class="price">{{ formatUsd(totalProfit) }}</span>
          </span>
       </div>
-      <div v-if="!!data.length" class="table-container">
+      <div v-if="!!data.length && !loading" class="table-container">
          <Table :columns="columns" :data="data">
             <template #actions="{data}">
                <div class="actions">
@@ -29,13 +29,16 @@
             </template>
          </Table>
       </div>
-      <div class="no-data">
+      <div class="no-data" v-else-if="!loading">
          <span class="title">
             Nakliye bulunmamaktadır. Aşağıda ki butona tıklayarak yeni nakliye ekleyebilrisiniz.
          </span>
          <button class="add-new-btn" @click="router.push({name: 'AddShipment'})">
             Nakliye Ekle
          </button>
+      </div>
+      <div v-if="loading" class="loading">
+         Yükleniyor...
       </div>
    </div>
 </template>
@@ -48,6 +51,7 @@ import { useRouter } from "vue-router";
 import { formatUsd } from '@/utils/helpers'
 import { db } from '@/config/firebaseConfig'
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import logger from "@fortawesome/vue-fontawesome/src/logger.js";
 
 const router = useRouter();
 
@@ -128,15 +132,19 @@ const columns = [
 
 ]
 
-const data = ref([])
+const data = ref([]);
+const loading = ref(false);
+const totalProfit = ref(0)
 
 onMounted(async () => {
    await getShipments();
 })
 
 const getShipments = async () => {
+   loading.value = true;
    const response = await getDocs(collection(db, "shipments"));
-   let shipments = []
+   let shipments = [];
+   let netProfit = 0;
    response.forEach((doc) => {
       const shipment = {
          id: doc.id,
@@ -148,18 +156,22 @@ const getShipments = async () => {
          shipment_cost: formatUsd(doc.data().shipment_cost || 0),
          profit: formatUsd(doc.data().shipment_price - doc.data().shipment_cost || 0),
       }
+      netProfit += doc.data().shipment_price - doc.data().shipment_cost || 0;
       shipments.push(shipment);
    });
-   data.value = shipments
+   totalProfit.value = netProfit
+   data.value = shipments;
+   loading.value = false;
 }
 
-const totalProfit = computed(() => {
+/*const totalProfit = computed(() => {
+   data.value.map(val => console.log(parseInt(val.profit.replace('$ ', ''))))
    const total = (data.value || []).reduce((acc, val) => {
       const profit = Number(val.profit.replace('$ ', ''));
       return acc + profit
    }, 0)
    return `${formatUsd(total || 0)}`
-});
+});*/
 
 const showDetail = (shipment) => {
    router.push({name: 'AddShipment', query: {id: shipment.id}});
@@ -246,6 +258,12 @@ const removeShipment = async (shipment) => {
       & .title {
          color: var(--secondary);
       }
+   }
+   & .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 3rem;
    }
 }
 
