@@ -5,6 +5,13 @@ const formatUsd = (number) => {
    }).format(number).replace('$', '$ ');
 }
 
+const formatTL = (number) => {
+   return new Intl.NumberFormat('tr-TR', {
+      style: 'currency',
+      currency: 'TRY',
+   }).format(number).replace('₺', '₺ ');
+}
+
 const setToken = (key, value) => {
    document.cookie = `${key}=${value}`
 }

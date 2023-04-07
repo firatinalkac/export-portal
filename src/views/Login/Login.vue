@@ -16,7 +16,6 @@
 import { ref, computed } from 'vue';
 import Input from "@/components/Input.vue";
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { setToken } from "@/utils/helpers.js";
 import { useRouter } from 'vue-router'
 
 const router = useRouter();

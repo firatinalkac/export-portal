@@ -12,6 +12,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "firebase": "^9.19.1",
     "sass": "^1.60.0",
+    "uuid": "^9.0.0",
     "vue": "^3.2.47",
     "vue-router": "4"
   },
